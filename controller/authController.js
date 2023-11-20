@@ -1,6 +1,13 @@
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 import Doctor from '../modules/DoctorSchema.js'
 import User from "../modules/UserSchema.js"
+
+const generateToken = (user) => {
+    return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET_KEY, {
+        expiresIn: '15d'
+    })
+}
 
 export const register = async (req, res) => {
     const { email, password, name, role, photo, gender } = req.body
@@ -71,6 +78,9 @@ export const login = async (req, res) => {
         if (!passwordMatch) {
             res.status(400).json({ success: false, message: 'Invalid credentials' })
         }
+
+        // Get Token 
+        const token = generateToken(user)
 
     } catch (error) {
 
