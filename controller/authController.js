@@ -51,7 +51,11 @@ export const register = async (req, res) => {
     }
 }
 export const login = async (req, res) => {
+    const { email, password } = req.body
     try {
+        const user = null
+        const patient = await User.findOne({ email })
+        const doctor = await Doctor.findOne({ email })
 
     } catch (error) {
 
