@@ -22,7 +22,7 @@ const deleteUser = async (req, res) => {
 const getSingleUser = async (req, res) => {
     const id = req.params.id
     try {
-        const findUser = await User.findById(id)
+        const findUser = await User.findById(id).select("-password")
         res.status(200).json({ success: true, message: 'User Found Successfully', data: findUser })
     } catch (error) {
         res.status(404).json({ success: false, message: 'No user found' })
@@ -30,7 +30,7 @@ const getSingleUser = async (req, res) => {
 }
 const getAllUser = async (req, res) => {
     try {
-        const user = await User.find({})
+        const user = await User.find({}).select("-password")
         res.status(200).json({ success: true, message: 'Users Found Successfully', data: user })
     } catch (error) {
         res.status(404).json({ success: false, message: 'No users found' })
