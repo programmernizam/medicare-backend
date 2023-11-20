@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
-import authRoutes from './routes/auth.js'
+import router from './app/routes/routes.js'
 
 dotenv.config()
 
@@ -33,6 +33,6 @@ const connectDB = async () => {
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors(corsOptions))
-app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1', router)
 
 app.listen(port, () => { connectDB(), console.log('Server is running ' + port) })
