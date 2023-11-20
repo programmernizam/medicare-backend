@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
-import router from './app/routes/routes.js'
+import router from './src/routes/routes.js'
 
 dotenv.config()
 

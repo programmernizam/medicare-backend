@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import Doctor from '../modules/DoctorSchema.js'
-import User from "../modules/UserSchema.js"
+import Doctor from '../../modules/DoctorSchema.js'
+import User from "../../modules/UserSchema.js"
 
 const generateToken = user => {
     return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET_KEY, {
