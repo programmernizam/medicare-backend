@@ -28,8 +28,17 @@ const getSingleUser = async (req, res) => {
         res.status(404).json({ success: false, message: 'No user found' })
     }
 }
+const getAllUser = async (req, res) => {
+    try {
+        const user = await User.find({})
+        res.status(200).json({ success: true, message: 'Users Found Successfully', data: user })
+    } catch (error) {
+        res.status(404).json({ success: false, message: 'No users found' })
+    }
+}
 export const userController = {
     updateUser,
     deleteUser,
-    getSingleUser
+    getSingleUser,
+    getAllUser
 }
