@@ -10,6 +10,15 @@ const updateUser = async (req, res) => {
     }
 }
 
+const deleteUser = async (req, res) => {
+    const id = req.params.id
+    try {
+        const deleteUser = await User.findByIdAndDelete(id)
+        res.status(200).json({ success: true, message: 'Successfully Deleted', data: deleteUser })
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Field Update' })
+    }
+}
 
 export const userController = {
     updateUser,
