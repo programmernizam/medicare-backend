@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import Doctor from '../modules/DoctorSchema.js'
 import User from "../modules/UserSchema.js"
 
-const generateToken = (user) => {
+const generateToken = user => {
     return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET_KEY, {
         expiresIn: '15d'
     })
@@ -58,9 +58,9 @@ export const register = async (req, res) => {
     }
 }
 export const login = async (req, res) => {
-    const { email, password } = req.body
+    const { email } = req.body
     try {
-        const user = null
+        let user = null
         const patient = await User.findOne({ email })
         const doctor = await Doctor.findOne({ email })
         if (patient) {
@@ -74,7 +74,10 @@ export const login = async (req, res) => {
             res.status(400).json({ success: false, message: 'User not found!' })
         }
         // Compare password
-        const passwordMatch = await bcrypt.compare(password, user.password)
+        const passwordMatch = await bcrypt.compare(
+            req.body.password,
+            user.password
+        )
         if (!passwordMatch) {
             res.status(400).json({ success: false, message: 'Invalid credentials' })
         }
