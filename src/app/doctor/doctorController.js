@@ -28,7 +28,14 @@ const getSingleDoctor = async (req, res) => {
         res.status(404).json({ success: false, message: 'No user found' })
     }
 }
-
+const getAllDoctor = async (req, res) => {
+    try {
+        const doctor = await Doctor.find({}).select("-password")
+        res.status(200).json({ success: true, message: 'Doctor Found Successfully', data: doctor })
+    } catch (error) {
+        res.status(404).json({ success: false, message: 'No users found' })
+    }
+}
 export const doctorController = {
     updateDoctor,
     getAllDoctor,
