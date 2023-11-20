@@ -56,6 +56,16 @@ export const login = async (req, res) => {
         const user = null
         const patient = await User.findOne({ email })
         const doctor = await Doctor.findOne({ email })
+        if (patient) {
+            user = patient
+        }
+        if (doctor) {
+            user = doctor
+        }
+        // check user exist or not
+        if (!user) {
+            res.status(400).json({ success: false, message: 'User not found!' })
+        }
 
     } catch (error) {
 
