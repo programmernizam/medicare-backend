@@ -19,7 +19,15 @@ const deleteUser = async (req, res) => {
         res.status(500).json({ success: false, message: 'Field Update' })
     }
 }
-
+const getSingleUser = async (req, res) => {
+    const id = req.params.id
+    try {
+        const findUser = await User.findById(id)
+        res.status(200).json({ success: true, message: 'User Found Successfully', data: findUser })
+    } catch (error) {
+        res.status(404).json({ success: false, message: 'No user found' })
+    }
+}
 export const userController = {
     updateUser,
     deleteUser,
