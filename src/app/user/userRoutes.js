@@ -1,12 +1,12 @@
 import express from 'express'
-import { authenticate } from '../../auth/verifyToken.js'
+import { authenticate, restrict } from '../../auth/verifyToken.js'
 import { userController } from './userController.js'
 
 const router = express.Router()
 
-router.get('/:id', authenticate, userController.getSingleUser)
-router.get('/', userController.getAllUser)
-router.put('/:id', userController.updateUser)
-router.delete('/:id', userController.deleteUser)
+router.get('/:id', authenticate, restrict(['patient']), userController.getSingleUser)
+router.get('/', authenticate, restrict(['admin']), userController.getAllUser)
+router.put('/:id', authenticate, restrict(['patient']), userController.updateUser)
+router.delete('/:id', authenticate, restrict(['patient']), userController.deleteUser)
 
 export const userRoutes = router
