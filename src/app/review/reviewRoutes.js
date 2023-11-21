@@ -1,10 +1,12 @@
 import express from 'express'
-import { authenticate, restrict } from '../../auth/verifyToken.js'
+import { authVerify } from '../../auth/verifyToken.js'
 import { reviewController } from './reviewController.js'
 
-const router = express.Router()
+const router = express.Router({ mergeParams: true })
 
-router.get('/', reviewController.getAllReviews)
-router.post('/', authenticate, restrict(['patient']), reviewController.createReview)
+router
+    .route("/")
+    .get(reviewController.getAllReviews)
+    .post(authVerify.authenticate, authVerify.restrict(['patient']), reviewController.createReview)
 
 export const reviewRoutes = router

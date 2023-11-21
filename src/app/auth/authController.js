@@ -50,7 +50,7 @@ export const register = async (req, res) => {
             })
         }
         await user.save()
-        res.status(200).json({ success: true, message: 'User Successfully Created' })
+        res.status(200).json({ success: true, message: 'User Successfully Created', data: user })
 
 
     } catch (error) {

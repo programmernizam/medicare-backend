@@ -1,11 +1,14 @@
 import express from 'express'
-import { authenticate, restrict } from '../../auth/verifyToken.js'
+import { authVerify } from '../../auth/verifyToken.js'
+import { reviewRoutes } from '../review/reviewRoutes.js'
 import { doctorController } from './doctorController.js'
 const router = express.Router()
 
-router.get('/:id', authenticate, restrict(['doctor']), doctorController.getSingleDoctor)
-router.get('/', authenticate, restrict(['admin']), doctorController.getAllDoctor)
-router.put('/:id', authenticate, restrict(['doctor']), doctorController.updateDoctor)
-router.delete('/:id', authenticate, restrict(['doctor']), doctorController.deleteDoctor)
+// Nested Routes
+router.use('/:doctorId/reviews', reviewRoutes)
+router.get('/:id', doctorController.getSingleDoctor)
+router.get('/', doctorController.getAllDoctor)
+router.put('/:id', authVerify.authenticate, authVerify.restrict(['doctor']), doctorController.updateDoctor)
+router.delete('/:id', authVerify.authenticate, authVerify.restrict(['doctor']), doctorController.deleteDoctor)
 
 export const doctorRoutes = router
