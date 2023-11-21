@@ -30,8 +30,19 @@ const getSingleDoctor = async (req, res) => {
 }
 const getAllDoctor = async (req, res) => {
     try {
-        const doctor = await Doctor.find({}).select("-password")
-        res.status(200).json({ success: true, message: 'Doctor Found Successfully', data: doctor })
+        const { query } = req.query
+        let doctors
+        if (query) {
+            doctors = await Doctor.find({
+                isApproved: 'approved',
+                $or: [{ name: { $regex: query, $options: 'i' } },
+                { specialization: { $regex: query, $options: 'i' } }]
+            }).select('-password')
+        } else {
+            doctors = await Doctor.find({ isApproved: 'approved' }).select("-password")
+        }
+        res.status(200).json({ success: true, message: 'Doctor Found Successfully', data: doctors })
+
     } catch (error) {
         res.status(404).json({ success: false, message: 'No users found' })
     }
