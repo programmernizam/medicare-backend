@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
-
+import Doctor from '../modules/DoctorSchema.js'
+import User from '../modules/UserSchema.js'
 export const authenticate = async (req, res, next) => {
     // Get Token From Headers
     const authToken = req.headers.authorization
@@ -22,5 +23,18 @@ export const authenticate = async (req, res, next) => {
             })
         }
         return res.status(401).json({ success: false, message: 'Invalid Token' })
+    }
+}
+
+const restrict = async (req, res, next) => {
+    const userId = req.userId
+    let user
+    const patient = await User.findById(userId)
+    const doctor = await Doctor.findById(userId)
+    if (patient) {
+        user = patient
+    }
+    if (doctor) {
+        user = doctor
     }
 }
