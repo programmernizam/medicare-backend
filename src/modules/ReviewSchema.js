@@ -46,7 +46,7 @@ reviewSchema.statics.calcAverageRating = async function (doctorId) {
     }])
     await Doctor.findByIdAndUpdate(doctorId, {
         totalRating: stats[0].numberOfRating,
-        averageRating: stats[0].averageRating
+        averageRating: stats[0].avgRating
     })
 }
 reviewSchema.post("save", function (next) {
