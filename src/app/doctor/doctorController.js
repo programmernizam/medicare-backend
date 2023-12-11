@@ -72,5 +72,6 @@ export const doctorController = {
     updateDoctor,
     getAllDoctor,
     getSingleDoctor,
-    deleteDoctor
+    deleteDoctor,
+    getDoctorProfile
 }
