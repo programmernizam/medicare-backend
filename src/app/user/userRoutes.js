@@ -9,6 +9,6 @@ router.get('/', authVerify.authenticate, authVerify.restrict(['admin']), userCon
 router.put('/:id', authVerify.authenticate, authVerify.restrict(['patient']), userController.updateUser)
 router.delete('/:id', authVerify.authenticate, authVerify.restrict(['patient']), userController.deleteUser)
 router.get('profile/me', authVerify.authenticate, authVerify.restrict(['patient']), userController.getUserProfile)
-router.delete('appointment/my-appointment', authVerify.authenticate, authVerify.restrict(['patient']), userController.getMyAppointment)
+router.get('appointment/my-appointment', authVerify.authenticate, authVerify.restrict(['patient']), userController.getMyAppointment)
 
 export const userRoutes = router
