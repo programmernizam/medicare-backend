@@ -10,6 +10,6 @@ router.get('/:id', doctorController.getSingleDoctor)
 router.get('/', doctorController.getAllDoctor)
 router.put('/:id', authVerify.authenticate, authVerify.restrict(['doctor']), doctorController.updateDoctor)
 router.delete('/:id', authVerify.authenticate, authVerify.restrict(['doctor']), doctorController.deleteDoctor)
-router.get('profile/me', authVerify.authenticate, authVerify.restrict(['docto']), doctorController.getDoctorProfile)
+router.get('profile/me', authVerify.authenticate, authVerify.restrict(['doctor']), doctorController.getDoctorProfile)
 
 export const doctorRoutes = router
