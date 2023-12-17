@@ -66,7 +66,7 @@ const getMyAppointment = async (req, res) => {
         const doctorIds = bookings.map(ele => ele.doctor.id)
 
         // Step 3: Retrieve Doctors using doctor ids
-        const doctors = await Doctor.find({ _id: { $in: doctorIds } }.select('-password'))
+        const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select('-password')
         res.status(200).json(
             {
                 success: true,
