@@ -38,5 +38,4 @@ app.use('/api/v1', router)
 // Handle preflight requests
 app.options('*', cors(corsOptions))
 
-// server.timeout = 60000;
 app.listen(port, () => { connectDB(), console.log('Server is running ' + port) })
