@@ -11,9 +11,7 @@ const app = express()
 const port = process.env.PORT || 8000
 
 const corsOptions = {
-    origin: "*",
-    credential: true,
-    method: ["GET", "POST", "PUT", "DELETE"]
+    origin: true
 }
 
 app.get('/', (req, res) => {
@@ -36,8 +34,5 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors(corsOptions))
 app.use('/api/v1', router)
-
-// Handle preflight requests
-app.options('*', cors(corsOptions))
 
 app.listen(port, () => { connectDB(), console.log('Server is running ' + port) })
