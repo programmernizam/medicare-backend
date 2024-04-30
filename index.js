@@ -35,4 +35,7 @@ app.use(cookieParser())
 app.use(cors(corsOptions))
 app.use('/api/v1', router)
 
+// Handle preflight requests
+app.options('*', cors(corsOptions))
+
 app.listen(port, () => { connectDB(), console.log('Server is running ' + port) })
