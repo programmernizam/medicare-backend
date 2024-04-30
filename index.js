@@ -39,3 +39,5 @@ app.use('/api/v1', router)
 app.options('*', cors(corsOptions))
 
 app.listen(port, () => { connectDB(), console.log('Server is running ' + port) })
+
+server.timeout = 60000;
